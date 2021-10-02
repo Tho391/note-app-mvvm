@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
@@ -113,25 +112,13 @@ class NotesFragment : Fragment() {
                 val noteOderType = notesViewModel.state.value.noteOrder.orderType
                 when (checkedId) {
                     R.id.radio_title -> notesViewModel.onEvent(
-                        NotesEvent.Order(
-                            NoteOrder.Title(
-                                noteOderType
-                            )
-                        )
+                        NotesEvent.Order(NoteOrder.Title(noteOderType))
                     )
                     R.id.radio_date -> notesViewModel.onEvent(
-                        NotesEvent.Order(
-                            NoteOrder.Date(
-                                noteOderType
-                            )
-                        )
+                        NotesEvent.Order(NoteOrder.Date(noteOderType))
                     )
                     R.id.radio_color -> notesViewModel.onEvent(
-                        NotesEvent.Order(
-                            NoteOrder.Color(
-                                noteOderType
-                            )
-                        )
+                        NotesEvent.Order(NoteOrder.Color(noteOderType))
                     )
                 }
             }
@@ -139,18 +126,10 @@ class NotesFragment : Fragment() {
                 val noteOder = notesViewModel.state.value.noteOrder
                 when (checkedId) {
                     R.id.radio_ascending -> notesViewModel.onEvent(
-                        NotesEvent.Order(
-                            noteOder.copy(
-                                OrderType.Ascending
-                            )
-                        )
+                        NotesEvent.Order(noteOder.copy(OrderType.Ascending))
                     )
                     R.id.radio_descending -> notesViewModel.onEvent(
-                        NotesEvent.Order(
-                            noteOder.copy(
-                                OrderType.Ascending
-                            )
-                        )
+                        NotesEvent.Order(noteOder.copy(OrderType.Descending))
                     )
                 }
             }

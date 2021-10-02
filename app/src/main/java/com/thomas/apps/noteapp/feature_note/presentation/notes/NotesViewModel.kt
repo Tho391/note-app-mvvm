@@ -38,8 +38,11 @@ class NotesViewModel @Inject constructor(
                     && state.value.noteOrder.orderType == event.noteOrder.orderType
                 ) {
                     return
+                } else {
+                    _state.value = state.value.copy(
+                        noteOrder = event.noteOrder
+                    )
                 }
-
             }
             is NotesEvent.DeleteNote -> {
                 viewModelScope.launch {

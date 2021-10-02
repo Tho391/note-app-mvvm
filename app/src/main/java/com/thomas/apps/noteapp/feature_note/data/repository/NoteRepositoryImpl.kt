@@ -11,7 +11,7 @@ class NoteRepositoryImpl(private val dao: NoteDao) : NoteRepository {
         return dao.getNotes()
     }
 
-    override suspend fun getNote(id: Long): Note? {
+    override suspend fun getNoteById(id: Long): Note? {
         return dao.getNoteById(id)
     }
 
