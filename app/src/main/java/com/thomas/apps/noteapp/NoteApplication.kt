@@ -11,9 +11,11 @@ import coil.decode.VideoFrameDecoder
 import coil.fetch.VideoFrameFileFetcher
 import coil.fetch.VideoFrameUriFetcher
 import coil.util.CoilUtils
+import dagger.hilt.android.HiltAndroidApp
 import okhttp3.OkHttpClient
 import timber.log.Timber
 
+@HiltAndroidApp
 class NoteApplication : Application() {
 
     override fun onCreate() {
