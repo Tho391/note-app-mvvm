@@ -12,10 +12,10 @@ data class Note(
     val color: Int,
 
     @PrimaryKey
-    val id: Long = 0,
+    val id: Long? = null,
 ) {
     companion object {
-       private val colorString = listOf(
+        private val colorString = listOf(
             "#ff9800", //orange
             "#ffc107", //amber
             "#ffeb3b", //yellow
@@ -41,4 +41,4 @@ data class Note(
     }
 }
 
-class InvalidNoteException(message: String): Exception()
+class InvalidNoteException(message: String) : Exception()
