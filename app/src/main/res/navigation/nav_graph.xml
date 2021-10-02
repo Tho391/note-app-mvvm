@@ -7,5 +7,24 @@
     <fragment
         android:id="@+id/notesFragment"
         android:name="com.thomas.apps.noteapp.feature_note.presentation.notes.components.NotesFragment"
-        android:label="NotesFragment" />
+        android:label="@string/Notes">
+        <action
+            android:id="@+id/action_notesFragment_to_addEditNoteFragment"
+            app:destination="@id/addEditNoteFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/notesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditNoteFragment"
+        android:name="com.thomas.apps.noteapp.feature_note.presentation.add_edit_note.components.AddEditNoteFragment"
+        android:label="@string/Notes">
+        <argument
+            android:name="noteId"
+            app:argType="long"
+            android:defaultValue="-1L" />
+        <argument
+            android:name="noteColor"
+            app:argType="integer"
+            android:defaultValue="-1" />
+    </fragment>
 </navigation>

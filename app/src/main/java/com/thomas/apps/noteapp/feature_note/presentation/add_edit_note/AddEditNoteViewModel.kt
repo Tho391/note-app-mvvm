@@ -20,17 +20,11 @@ class AddEditNoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _noteTitle = MutableStateFlow(
-        NoteTextFieldState(
-            hint = "Enter title..."
-        )
+    private val _noteTitle = MutableStateFlow(NoteTextFieldState()
     )
     val noteTitle = _noteTitle.asStateFlow()
 
-    private val _noteContent = MutableStateFlow(
-        NoteTextFieldState(
-            hint = "Enter some content..."
-        )
+    private val _noteContent = MutableStateFlow(NoteTextFieldState()
     )
     val noteContent = _noteContent.asStateFlow()
 
@@ -49,9 +43,9 @@ class AddEditNoteViewModel @Inject constructor(
                     noteUseCases.getNote(noteId)?.also { note ->
                         currentNoteId = note.id
                         _noteTitle.value =
-                            noteTitle.value.copy(text = note.title, isHintVisible = false)
+                            noteTitle.value.copy(text = note.title)
                         _noteContent.value =
-                            noteContent.value.copy(text = note.content, isHintVisible = false)
+                            noteContent.value.copy(text = note.content)
                         _noteColor.value = note.color
                     }
                 }
@@ -66,19 +60,9 @@ class AddEditNoteViewModel @Inject constructor(
                     text = event.value
                 )
             }
-            is AddEditNoteEvent.ChangeTitleFocus -> {
-                _noteTitle.value = noteTitle.value.copy(
-                    isHintVisible = !event.isFocused && noteTitle.value.text.isBlank()
-                )
-            }
             is AddEditNoteEvent.EnteredContent -> {
                 _noteContent.value = noteContent.value.copy(
                     text = event.value
-                )
-            }
-            is AddEditNoteEvent.ChangeContentFocus -> {
-                _noteContent.value = noteContent.value.copy(
-                    isHintVisible = !event.isFocused && noteContent.value.text.isBlank()
                 )
             }
             is AddEditNoteEvent.ChangeColor -> {

@@ -4,13 +4,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/menu_notes" />
+    </com.google.android.material.appbar.AppBarLayout>
+
     <RadioGroup
         android:id="@+id/radioGroup_order_property"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/radio_date"
         android:orientation="horizontal"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout">
 
         <com.google.android.material.radiobutton.MaterialRadioButton
             android:id="@+id/radio_title"
@@ -38,7 +51,6 @@
         android:id="@+id/radioGroup_order_type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:checkedButton="@id/radio_ascending"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@id/radioGroup_order_property">
 
@@ -68,10 +80,10 @@
         android:id="@+id/fab_add_note"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_large"
+        android:layout_margin="@dimen/margin_xlarge"
         android:contentDescription="@string/description_add_note"
         android:src="@drawable/ic_add"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:tint="@color/colorOnPrimary" />
+        app:tint="?attr/colorOnPrimary" />
 </androidx.constraintlayout.widget.ConstraintLayout>

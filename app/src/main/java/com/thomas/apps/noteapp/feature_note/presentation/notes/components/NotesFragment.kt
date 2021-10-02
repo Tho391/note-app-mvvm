@@ -5,8 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.thomas.apps.noteapp.R
@@ -27,19 +30,23 @@ class NotesFragment : Fragment() {
 
     private lateinit var binding: FragmentNotesBinding
 
-    private val notesViewModel: NotesViewModel by activityViewModels()
+    private val viewModel: NotesViewModel by viewModels()
 
     private val noteItemAdapter by lazy {
         NoteItemAdapter().apply {
             deleteClickListener = object : NoteItemAdapter.DeleteClickListener {
-                override fun onDelete(item: Note) {
-                    notesViewModel.onEvent(NotesEvent.DeleteNote(item))
+                override fun onDelete(note: Note) {
+                    viewModel.onEvent(NotesEvent.DeleteNote(note))
                     showDeleteSnackbar()
                 }
             }
             itemClickListener = object : NoteItemAdapter.ItemClickListener {
-                override fun onClick(item: Note) {
-
+                override fun onClick(note: Note) {
+                    val action = NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                        noteId = note.id ?: -1,
+                        noteColor = note.color
+                    )
+                    findNavController().navigate(action)
                 }
             }
         }
@@ -63,9 +70,33 @@ class NotesFragment : Fragment() {
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setUpToolbar()
+    }
+
+    private fun setUpToolbar() {
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.toolbar.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.item_sort -> {
+                    viewModel.onEvent(NotesEvent.ToggleOrderSection)
+                    true
+                }
+                else -> false
+            }
+        }
+    }
+
     private fun setUpFab() {
         binding.fabAddNote.setOnClickListener {
-            Timber.i("fab click ${notesViewModel.hashCode()}")
+            val action = NotesFragmentDirections.actionNotesFragmentToAddEditNoteFragment(
+                noteId = -1,
+                noteColor = -1
+            )
+            findNavController().navigate(action)
         }
     }
 
@@ -78,7 +109,7 @@ class NotesFragment : Fragment() {
 
     private fun observe() {
         lifecycleScope.launchWhenCreated {
-            notesViewModel.state.collect {
+            viewModel.state.collect {
                 updateUI(it)
             }
         }
@@ -109,26 +140,26 @@ class NotesFragment : Fragment() {
     private fun setUpRadioButton() {
         with(binding) {
             radioGroupOrderProperty.setOnCheckedChangeListener { _, checkedId ->
-                val noteOderType = notesViewModel.state.value.noteOrder.orderType
+                val noteOderType = viewModel.state.value.noteOrder.orderType
                 when (checkedId) {
-                    R.id.radio_title -> notesViewModel.onEvent(
+                    R.id.radio_title -> viewModel.onEvent(
                         NotesEvent.Order(NoteOrder.Title(noteOderType))
                     )
-                    R.id.radio_date -> notesViewModel.onEvent(
+                    R.id.radio_date -> viewModel.onEvent(
                         NotesEvent.Order(NoteOrder.Date(noteOderType))
                     )
-                    R.id.radio_color -> notesViewModel.onEvent(
+                    R.id.radio_color -> viewModel.onEvent(
                         NotesEvent.Order(NoteOrder.Color(noteOderType))
                     )
                 }
             }
             radioGroupOrderType.setOnCheckedChangeListener { _, checkedId ->
-                val noteOder = notesViewModel.state.value.noteOrder
+                val noteOder = viewModel.state.value.noteOrder
                 when (checkedId) {
-                    R.id.radio_ascending -> notesViewModel.onEvent(
+                    R.id.radio_ascending -> viewModel.onEvent(
                         NotesEvent.Order(noteOder.copy(OrderType.Ascending))
                     )
-                    R.id.radio_descending -> notesViewModel.onEvent(
+                    R.id.radio_descending -> viewModel.onEvent(
                         NotesEvent.Order(noteOder.copy(OrderType.Descending))
                     )
                 }
@@ -139,7 +170,7 @@ class NotesFragment : Fragment() {
     private fun showDeleteSnackbar() {
         Snackbar.make(binding.root, R.string.note_deleted, Snackbar.LENGTH_SHORT)
             .setAction(R.string.undo) {
-                notesViewModel.onEvent(NotesEvent.RestoreNote)
+                viewModel.onEvent(NotesEvent.RestoreNote)
             }
             .show()
     }

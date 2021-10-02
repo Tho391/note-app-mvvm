@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="margin_xlarge">24dp</dimen>
     <dimen name="margin_large">16dp</dimen>
     <dimen name="margin_medium">8dp</dimen>
     <dimen name="margin_small">4dp</dimen>
+
     <dimen name="note_item_min_height">150dp</dimen>
+
+    <dimen name="item_color_size">50dp</dimen>
+
+    <dimen name="stroke_small">1dp</dimen>
+
+    <dimen name="elevation_medium">4dp</dimen>
 </resources>

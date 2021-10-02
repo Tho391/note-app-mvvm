@@ -10,4 +10,6 @@
     <string name="color">Color</string>
     <string name="note_deleted">Note deleted</string>
     <string name="undo">Undo</string>
+    <string name="content">Content</string>
+    <string name="save_note">Save note</string>
 </resources>

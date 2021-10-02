@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.imageview.ShapeableImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/imageView_color"
+    android:layout_width="@dimen/item_color_size"
+    android:layout_height="@dimen/item_color_size"
+    android:layout_margin="@dimen/margin_medium"
+    android:elevation="@dimen/elevation_medium"
+    app:shapeAppearanceOverlay="@style/ShapeAppearance.RoundCorner"
+    app:strokeColor="@android:color/black"
+    tools:background="@color/red">
+
+</com.google.android.material.imageview.ShapeableImageView>

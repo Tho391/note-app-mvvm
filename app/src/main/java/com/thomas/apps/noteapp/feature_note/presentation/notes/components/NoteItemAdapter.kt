@@ -60,10 +60,10 @@ class NoteItemAdapter : ListAdapter<Note, NoteItemAdapter.ViewHolder>(NoteDC()) 
     }
 
     interface DeleteClickListener {
-        fun onDelete(item: Note)
+        fun onDelete(note: Note)
     }
 
     interface ItemClickListener {
-        fun onClick(item: Note)
+        fun onClick(note: Note)
     }
 }
