@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearance.NoteItem" parent="ShapeAppearance.MaterialComponents.MediumComponent">
+        <item name="cornerFamilyTopLeft">rounded</item>
+        <item name="cornerFamilyTopRight">cut</item>
+        <item name="cornerFamilyBottomLeft">rounded</item>
+        <item name="cornerFamilyBottomRight">rounded</item>
+        <item name="cornerSizeTopLeft">10dp</item>
+        <item name="cornerSizeTopRight">30dp</item>
+        <item name="cornerSizeBottomLeft">10dp</item>
+        <item name="cornerSizeBottomRight">10dp</item>
+    </style>
+</resources>

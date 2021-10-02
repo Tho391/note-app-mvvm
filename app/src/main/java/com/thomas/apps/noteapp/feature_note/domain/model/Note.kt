@@ -15,7 +15,7 @@ data class Note(
     val id: Long = 0,
 ) {
     companion object {
-        val colorString = listOf(
+       private val colorString = listOf(
             "#ff9800", //orange
             "#ffc107", //amber
             "#ffeb3b", //yellow
