@@ -1,4 +1,4 @@
-package com.thomas.apps.noteapp.utils
+package com.thomas.apps.noteapp.utils.worker
 
 import android.content.Context
 import android.content.Intent
