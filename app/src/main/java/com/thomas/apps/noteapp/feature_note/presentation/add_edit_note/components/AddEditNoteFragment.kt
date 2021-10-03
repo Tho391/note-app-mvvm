@@ -83,7 +83,8 @@ class AddEditNoteFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             viewModel.noteColor.collect {
-                binding.root.setBackgroundColor(it)
+                val color = requireContext().getColor(it)
+                binding.root.setBackgroundColor(color)
             }
         }
 

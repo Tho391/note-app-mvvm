@@ -6,7 +6,6 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="@dimen/margin_large"
     android:layout_marginVertical="@dimen/margin_medium"
-    app:cardBackgroundColor="@color/orange"
     app:shapeAppearanceOverlay="@style/ShapeAppearance.NoteItem">
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -31,8 +31,9 @@ class ItemColorAdapter :
         var colorSelectListener: ColorSelectListener? = null
 
         fun bind(item: ItemColor) {
-            binding.imageViewColor.setBackgroundColor(item.value)
             val context = binding.root.context
+            val color = context.getColor(item.value)
+            binding.imageViewColor.setBackgroundColor(color)
             val dp1 = context.resources.getDimension(R.dimen.stroke_small)
 
             binding.imageViewColor.strokeWidth = if (item.isSelected) {

@@ -12,4 +12,11 @@
     <color name="colorOnBackground">#E0E0E0</color>
     <color name="colorOnSurface">#E0E0E0</color>
     <color name="colorOnError">#4F4F4F</color>
+
+    <color name="yellow">#cabf45</color>
+    <color name="teal">#00867d</color>
+    <color name="indigo">#26418f</color>
+    <color name="deep_purple">#4d2c91</color>
+    <color name="purple">#790e8b</color>
+    <color name="red">#b61827</color>
 </resources>
