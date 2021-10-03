@@ -20,6 +20,8 @@ import com.thomas.apps.noteapp.feature_note.domain.utils.OrderType
 import com.thomas.apps.noteapp.feature_note.presentation.notes.NotesEvent
 import com.thomas.apps.noteapp.feature_note.presentation.notes.NotesState
 import com.thomas.apps.noteapp.feature_note.presentation.notes.NotesViewModel
+import com.thomas.apps.noteapp.feature_note.presentation.utils.IntentKeys.SCROLL_TOP
+import com.thomas.apps.noteapp.feature_note.presentation.utils.SpacingItemDecorator
 import com.thomas.apps.noteapp.utils.view.ViewUtils.viewGone
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
@@ -50,6 +52,16 @@ class NotesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("onCreate ${this.hashCode()}")
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy ${this.hashCode()}")
+        super.onDestroy()
     }
 
     override fun onCreateView(
@@ -104,6 +116,17 @@ class NotesFragment : Fragment() {
         binding.recyclerViewNotes.apply {
             layoutManager = LinearLayoutManager(context)
             adapter = noteItemAdapter
+            addItemDecoration(SpacingItemDecorator.DEFAULT)
+            setOnScrollChangeListener { _, _, scrollY, _, oldScrollY ->
+                when {
+                    scrollY > oldScrollY -> {
+                        binding.fabAddNote.hide()
+                    }
+                    scrollY < oldScrollY -> {
+                        binding.fabAddNote.show()
+                    }
+                }
+            }
         }
     }
 
@@ -113,6 +136,13 @@ class NotesFragment : Fragment() {
                 updateUI(it)
             }
         }
+
+        findNavController().currentBackStackEntry?.savedStateHandle?.getLiveData<Boolean>(SCROLL_TOP)
+            ?.observe(viewLifecycleOwner) {
+                binding.recyclerViewNotes.apply {
+                    if (it) post { smoothScrollToPosition(0) }
+                }
+            }
     }
 
     private fun updateUI(state: NotesState) {

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -20,8 +19,10 @@ import com.thomas.apps.noteapp.databinding.FragmentAddEditNoteBinding
 import com.thomas.apps.noteapp.feature_note.domain.model.Note
 import com.thomas.apps.noteapp.feature_note.presentation.add_edit_note.AddEditNoteEvent
 import com.thomas.apps.noteapp.feature_note.presentation.add_edit_note.AddEditNoteViewModel
+import com.thomas.apps.noteapp.feature_note.presentation.utils.IntentKeys
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
+import timber.log.Timber
 
 @AndroidEntryPoint
 class AddEditNoteFragment : Fragment() {
@@ -38,6 +39,16 @@ class AddEditNoteFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("onCreate ${this.hashCode()}")
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy ${this.hashCode()}")
+        super.onDestroy()
     }
 
     override fun onCreateView(
@@ -57,7 +68,7 @@ class AddEditNoteFragment : Fragment() {
     }
 
     private fun setUpTextInput() {
-        with(binding){
+        with(binding) {
             textInputTitle.editText?.doOnTextChanged { text, _, _, _ ->
                 viewModel.onEvent(AddEditNoteEvent.EnteredTitle(text.toString()))
             }
@@ -75,7 +86,12 @@ class AddEditNoteFragment : Fragment() {
                         showErrorSnackbar(event.message)
                     }
                     is AddEditNoteViewModel.UiEvent.SaveNote -> {
-                        findNavController().navigateUp()
+                        val navController = findNavController()
+                        navController.previousBackStackEntry?.savedStateHandle?.set(
+                            IntentKeys.SCROLL_TOP,
+                            true
+                        )
+                        navController.popBackStack()
                     }
                 }
             }

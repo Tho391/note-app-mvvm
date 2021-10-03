@@ -9,7 +9,8 @@
 
     <dimen name="item_color_size">50dp</dimen>
 
-    <dimen name="stroke_small">1dp</dimen>
+    <dimen name="stroke_medium">4dp</dimen>
+    <dimen name="stroke_small">2dp</dimen>
 
     <dimen name="elevation_medium">4dp</dimen>
 </resources>

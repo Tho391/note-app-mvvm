@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginHorizontal="@dimen/margin_large"
-    android:layout_marginVertical="@dimen/margin_medium"
+    android:id="@+id/cardView"
     app:shapeAppearanceOverlay="@style/ShapeAppearance.NoteItem">
 
     <androidx.constraintlayout.widget.ConstraintLayout

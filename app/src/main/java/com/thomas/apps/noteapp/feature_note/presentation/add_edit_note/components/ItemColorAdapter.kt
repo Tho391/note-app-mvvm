@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.thomas.apps.noteapp.R
 import com.thomas.apps.noteapp.databinding.ItemColorBinding
 
 class ItemColorAdapter :
@@ -34,12 +33,6 @@ class ItemColorAdapter :
             val context = binding.root.context
             val color = context.getColor(item.value)
             binding.imageViewColor.setBackgroundColor(color)
-            val dp1 = context.resources.getDimension(R.dimen.stroke_small)
-
-            binding.imageViewColor.strokeWidth = if (item.isSelected) {
-                dp1
-            } else
-                0f
             binding.imageViewColor.setOnClickListener { colorSelectListener?.onSelect(item) }
         }
 

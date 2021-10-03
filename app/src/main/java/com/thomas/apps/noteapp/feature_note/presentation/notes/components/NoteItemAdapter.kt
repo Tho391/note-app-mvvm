@@ -32,6 +32,10 @@ class NoteItemAdapter : ListAdapter<Note, NoteItemAdapter.ViewHolder>(NoteDC()) 
                 textViewTitle.text = item.title
                 textViewContent.text = item.content
 
+                val context = binding.root.context
+                val color = context.getColor(item.color)
+                cardView.setCardBackgroundColor(color)
+
                 imageViewDelete.setOnClickListener {
                     deleteClickListener?.onDelete(item)
                 }
