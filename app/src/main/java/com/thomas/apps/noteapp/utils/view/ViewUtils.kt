@@ -79,7 +79,7 @@ object ViewUtils {
     }
 
     fun CircularProgressIndicator.showIf(show: Boolean) {
-        if (show && isShown) {
+        if (show) {
             show()
         } else {
             hide()

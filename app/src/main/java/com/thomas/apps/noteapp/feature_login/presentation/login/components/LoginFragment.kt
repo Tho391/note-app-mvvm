@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.snackbar.Snackbar
 import com.thomas.apps.noteapp.databinding.FragmentLoginBinding
+import com.thomas.apps.noteapp.feature_login.presentation.login.LoginEvent
 import com.thomas.apps.noteapp.feature_login.presentation.login.LoginViewModel
 import com.thomas.apps.noteapp.utils.view.ViewUtils.showIf
 import dagger.hilt.android.AndroidEntryPoint
@@ -43,9 +44,17 @@ class LoginFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
         binding.viewModel = viewModel
 
+        setUpButton()
+
         observe()
 
         return binding.root
+    }
+
+    private fun setUpButton() {
+        binding.buttonLogin.setOnClickListener {
+            viewModel.onEvent(LoginEvent.Login)
+        }
     }
 
     private fun observe() {
@@ -59,8 +68,12 @@ class LoginFragment : Fragment() {
                     is LoginViewModel.UIEvent.ShowSnackbar -> {
                         showErrorSnackbar(uiEvent.message)
                     }
-                    is LoginViewModel.UIEvent.Loading -> {
-                        binding.loading.showIf(uiEvent.isLoading)
+                    is LoginViewModel.UIEvent.LoggingIn -> {
+                        Timber.i("show loading ${uiEvent.isLoggingIn}")
+                        binding.loading.showIf(uiEvent.isLoggingIn)
+                        binding.textInputLayoutUsername.isEnabled = uiEvent.isLoggingIn.not()
+                        binding.textInputLayoutPassword.isEnabled = uiEvent.isLoggingIn.not()
+                        binding.buttonLogin.isEnabled = uiEvent.isLoggingIn.not()
                     }
                 }
             }

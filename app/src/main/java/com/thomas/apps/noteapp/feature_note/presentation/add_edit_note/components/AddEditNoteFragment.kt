@@ -131,7 +131,8 @@ class AddEditNoteFragment : Fragment() {
 
     private fun setUpToolbar() {
         val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.splashFragment, R.id.loginFragment, R.id.notesFragment))
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
