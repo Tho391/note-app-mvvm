@@ -138,9 +138,7 @@ class AddEditNoteFragment : Fragment() {
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.item_save_note -> {
-                    //viewModel.onEvent(AddEditNoteEvent.SaveNote)
-                    val title = viewModel.noteTitle.value
-                    Timber.i("title: $title")
+                    viewModel.onEvent(AddEditNoteEvent.SaveNote)
                     true
                 }
                 else -> false
