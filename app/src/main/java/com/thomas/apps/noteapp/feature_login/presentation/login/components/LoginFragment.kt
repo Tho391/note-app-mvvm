@@ -65,12 +65,6 @@ class LoginFragment : Fragment() {
                 }
             }
         }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.isFormValid.collect {
-                binding.buttonLogin.isEnabled = it
-            }
-        }
     }
 
     private fun showErrorSnackbar(message: String) {

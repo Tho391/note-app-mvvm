@@ -7,6 +7,7 @@ import com.thomas.apps.noteapp.feature_login.domain.use_case.LoginUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,14 +20,6 @@ class LoginViewModel @Inject constructor(
 
     private val _password = MutableStateFlow(LoginTextFieldState())
     val password = _password.asStateFlow()
-
-    val isFormValid = combine(username, password) { (user, pass) ->
-        when {
-            user.text.isBlank() -> false
-            pass.text.isBlank() -> false
-            else -> true
-        }
-    }
 
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
