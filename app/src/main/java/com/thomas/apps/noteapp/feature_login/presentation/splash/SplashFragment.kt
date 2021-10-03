@@ -35,7 +35,7 @@ class SplashFragment : Fragment() {
     private fun checkLogin() {
         lifecycleScope.launch {
             context?.getToken()?.collect { token ->
-                delay(3000)
+                delay(1000)
                 val action = if (token.isEmpty()) {
                     SplashFragmentDirections.actionSplashFragmentToLoginFragment()
                 } else {

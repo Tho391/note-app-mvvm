@@ -89,7 +89,8 @@ class NotesFragment : Fragment() {
 
     private fun setUpToolbar() {
         val navController = findNavController()
-        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        val appBarConfiguration =
+            AppBarConfiguration(setOf(R.id.splashFragment, R.id.loginFragment, R.id.notesFragment))
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
         binding.toolbar.setOnMenuItemClickListener { menuItem ->
@@ -224,11 +225,12 @@ class NotesFragment : Fragment() {
 
     private fun showSignOutDialog() {
         MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.logout)
             .setMessage(R.string.sign_out_message)
             .setPositiveButton(R.string.ok) { _, _ ->
                 viewModel.onEvent(NotesEvent.SignOut)
             }
-            .setNeutralButton(R.string.cancel, null)
+            .setNegativeButton(R.string.cancel, null)
             .show()
     }
 }
