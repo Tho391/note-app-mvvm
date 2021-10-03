@@ -1,3 +1,23 @@
 <resources>
     <string name="app_name">Note App</string>
+    <string name="Notes">Notes</string>
+    <string name="description_add_note">Add note</string>
+    <string name="sort">Sort</string>
+    <string name="ascending">Ascending</string>
+    <string name="descending">Descending</string>
+    <string name="title">Title</string>
+    <string name="date">Date</string>
+    <string name="color">Color</string>
+    <string name="note_deleted">Note deleted</string>
+    <string name="undo">Undo</string>
+    <string name="content">Content</string>
+    <string name="save_note">Save note</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="username">Username</string>
+    <string name="sign_out">Sign out</string>
+    <string name="sign_out_message">Are you sure you want to logout?</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="logout">Logout</string>
 </resources>

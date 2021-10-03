@@ -1,4 +1,4 @@
-package com.thomas.apps.noteapp.utils
+package com.thomas.apps.noteapp.utils.view
 
 import android.content.Context
 import android.net.ConnectivityManager

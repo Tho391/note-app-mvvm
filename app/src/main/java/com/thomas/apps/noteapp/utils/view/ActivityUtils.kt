@@ -11,7 +11,6 @@ import android.view.Window
 import android.view.WindowInsets
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
-import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.appcompat.app.AppCompatActivity
@@ -83,10 +82,7 @@ object ActivityUtils {
             .show()
 
     fun View.snack(text: String, length: Int = Snackbar.LENGTH_SHORT): Snackbar {
-        val snack = Snackbar.make(this, text, length)
-        snack.view.findViewById<TextView>(com.google.android.material.R.id.snackbar_text).maxLines =
-            5
-        return snack
+        return Snackbar.make(this, text, length)
     }
 
     fun Context.launchAppSetting() {
