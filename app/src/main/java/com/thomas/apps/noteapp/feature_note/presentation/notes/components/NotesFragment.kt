@@ -215,7 +215,7 @@ class NotesFragment : Fragment() {
     }
 
     private fun showDeleteSnackbar() {
-        Snackbar.make(binding.root, R.string.note_deleted, Snackbar.LENGTH_SHORT)
+        Snackbar.make(binding.root, R.string.note_deleted, Snackbar.LENGTH_LONG)
             .setAction(R.string.undo) {
                 viewModel.onEvent(NotesEvent.RestoreNote)
             }
