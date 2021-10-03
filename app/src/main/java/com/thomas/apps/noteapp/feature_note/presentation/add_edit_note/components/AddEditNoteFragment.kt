@@ -66,22 +66,9 @@ class AddEditNoteFragment : Fragment() {
 
         setUpRecyclerView()
 
-        setUpTextInput()
-
         observe()
 
         return binding.root
-    }
-
-    private fun setUpTextInput() {
-        with(binding) {
-//            textInputTitle.editText?.doOnTextChanged { text, _, _, _ ->
-//                viewModel!!.onEvent(AddEditNoteEvent.EnteredTitle(text.toString()))
-//            }
-//            textInputContent.editText?.doOnTextChanged { text, _, _, _ ->
-//                viewModel!!.onEvent(AddEditNoteEvent.EnteredContent(text.toString()))
-//            }
-        }
     }
 
     private fun observe() {
@@ -124,20 +111,6 @@ class AddEditNoteFragment : Fragment() {
                 }
             }
         }
-
-//        lifecycleScope.launchWhenCreated {
-//            viewModel.noteTitle.collect {
-//                binding.textInputTitle.editText?.setText(it.text, TextView.BufferType.EDITABLE)
-//                binding.textInputTitle.editText?.setSelection(it.text.length)
-//            }
-//        }
-//
-//        lifecycleScope.launchWhenCreated {
-//            viewModel.noteContent.collect {
-//                binding.textInputContent.editText?.setText(it.text, TextView.BufferType.EDITABLE)
-//                binding.textInputContent.editText?.setSelection(it.text.length)
-//            }
-//        }
     }
 
     private fun showErrorSnackbar(message: String) {

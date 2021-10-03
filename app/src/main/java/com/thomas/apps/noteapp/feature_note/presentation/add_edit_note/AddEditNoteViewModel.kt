@@ -51,12 +51,6 @@ class AddEditNoteViewModel @Inject constructor(
 
     fun onEvent(event: AddEditNoteEvent) {
         when (event) {
-            is AddEditNoteEvent.EnteredTitle -> {
-                _noteTitle.value = noteTitle.value
-            }
-            is AddEditNoteEvent.EnteredContent -> {
-                _noteContent.value = noteContent.value
-            }
             is AddEditNoteEvent.ChangeColor -> {
                 _noteColor.value = event.color
             }
