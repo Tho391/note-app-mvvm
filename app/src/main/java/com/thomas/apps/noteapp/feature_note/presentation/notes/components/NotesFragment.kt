@@ -202,6 +202,7 @@ class NotesFragment : Fragment() {
             .setAction(R.string.undo) {
                 viewModel.onEvent(NotesEvent.RestoreNote)
             }
+            .setAnchorView(binding.fabAddNote)
             .show()
     }
 }

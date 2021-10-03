@@ -107,12 +107,14 @@ class AddEditNoteFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.noteTitle.collect {
                 binding.textInputTitle.editText?.setText(it.text, TextView.BufferType.EDITABLE)
+                binding.textInputTitle.editText?.setSelection(it.text.length)
             }
         }
 
         lifecycleScope.launchWhenCreated {
             viewModel.noteContent.collect {
                 binding.textInputContent.editText?.setText(it.text, TextView.BufferType.EDITABLE)
+                binding.textInputContent.editText?.setSelection(it.text.length)
             }
         }
     }
