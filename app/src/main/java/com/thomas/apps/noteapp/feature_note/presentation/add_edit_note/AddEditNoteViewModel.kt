@@ -7,7 +7,10 @@ import com.thomas.apps.noteapp.feature_note.domain.model.InvalidNoteException
 import com.thomas.apps.noteapp.feature_note.domain.model.Note
 import com.thomas.apps.noteapp.feature_note.domain.use_case.NoteUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -33,13 +36,15 @@ class AddEditNoteViewModel @Inject constructor(
     private var currentNoteId: Long? = null
 
     init {
+        Timber.i("init ${this.hashCode()}")
         savedStateHandle.get<Long>("noteId")?.let { noteId ->
             if (noteId != -1L) {
                 viewModelScope.launch {
                     noteUseCases.getNote(noteId)?.also { note ->
+                        Timber.i("note: $note")
                         currentNoteId = note.id
-                        _noteTitle.value = noteTitle.value
-                        _noteContent.value = noteContent.value
+                        _noteTitle.value = noteTitle.value.copy(text = note.title)
+                        _noteContent.value = noteContent.value.copy(text = note.content)
                         _noteColor.value = note.color
                     }
                 }
@@ -71,6 +76,11 @@ class AddEditNoteViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    override fun onCleared() {
+        Timber.i("onCleared ${this.hashCode()}")
+        super.onCleared()
     }
 
     sealed class UIEvent {
