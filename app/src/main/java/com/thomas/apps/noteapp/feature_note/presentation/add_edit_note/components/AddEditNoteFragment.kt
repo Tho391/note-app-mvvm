@@ -7,9 +7,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.animation.doOnEnd
-import androidx.core.widget.doOnTextChanged
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -62,6 +61,9 @@ class AddEditNoteFragment : Fragment() {
     ): View {
         binding = FragmentAddEditNoteBinding.inflate(layoutInflater)
 
+        binding.lifecycleOwner = viewLifecycleOwner
+        binding.viewModel = viewModel
+
         setUpRecyclerView()
 
         setUpTextInput()
@@ -73,12 +75,12 @@ class AddEditNoteFragment : Fragment() {
 
     private fun setUpTextInput() {
         with(binding) {
-            textInputTitle.editText?.doOnTextChanged { text, _, _, _ ->
-                viewModel.onEvent(AddEditNoteEvent.EnteredTitle(text.toString()))
-            }
-            textInputContent.editText?.doOnTextChanged { text, _, _, _ ->
-                viewModel.onEvent(AddEditNoteEvent.EnteredContent(text.toString()))
-            }
+//            textInputTitle.editText?.doOnTextChanged { text, _, _, _ ->
+//                viewModel!!.onEvent(AddEditNoteEvent.EnteredTitle(text.toString()))
+//            }
+//            textInputContent.editText?.doOnTextChanged { text, _, _, _ ->
+//                viewModel!!.onEvent(AddEditNoteEvent.EnteredContent(text.toString()))
+//            }
         }
     }
 
@@ -123,19 +125,19 @@ class AddEditNoteFragment : Fragment() {
             }
         }
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.noteTitle.collect {
-                binding.textInputTitle.editText?.setText(it.text, TextView.BufferType.EDITABLE)
-                binding.textInputTitle.editText?.setSelection(it.text.length)
-            }
-        }
-
-        lifecycleScope.launchWhenCreated {
-            viewModel.noteContent.collect {
-                binding.textInputContent.editText?.setText(it.text, TextView.BufferType.EDITABLE)
-                binding.textInputContent.editText?.setSelection(it.text.length)
-            }
-        }
+//        lifecycleScope.launchWhenCreated {
+//            viewModel.noteTitle.collect {
+//                binding.textInputTitle.editText?.setText(it.text, TextView.BufferType.EDITABLE)
+//                binding.textInputTitle.editText?.setSelection(it.text.length)
+//            }
+//        }
+//
+//        lifecycleScope.launchWhenCreated {
+//            viewModel.noteContent.collect {
+//                binding.textInputContent.editText?.setText(it.text, TextView.BufferType.EDITABLE)
+//                binding.textInputContent.editText?.setSelection(it.text.length)
+//            }
+//        }
     }
 
     private fun showErrorSnackbar(message: String) {

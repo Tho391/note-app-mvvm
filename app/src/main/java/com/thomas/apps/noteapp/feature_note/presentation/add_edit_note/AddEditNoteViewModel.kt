@@ -20,12 +20,10 @@ class AddEditNoteViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    private val _noteTitle = MutableStateFlow(NoteTextFieldState()
-    )
+    private val _noteTitle = MutableStateFlow(NoteTextFieldState())
     val noteTitle = _noteTitle.asStateFlow()
 
-    private val _noteContent = MutableStateFlow(NoteTextFieldState()
-    )
+    private val _noteContent = MutableStateFlow(NoteTextFieldState())
     val noteContent = _noteContent.asStateFlow()
 
     private val _noteColor = MutableStateFlow(Note.noteColors.random())
@@ -42,10 +40,8 @@ class AddEditNoteViewModel @Inject constructor(
                 viewModelScope.launch {
                     noteUseCases.getNote(noteId)?.also { note ->
                         currentNoteId = note.id
-                        _noteTitle.value =
-                            noteTitle.value.copy(text = note.title)
-                        _noteContent.value =
-                            noteContent.value.copy(text = note.content)
+                        _noteTitle.value = noteTitle.value
+                        _noteContent.value = noteContent.value
                         _noteColor.value = note.color
                     }
                 }
@@ -56,14 +52,10 @@ class AddEditNoteViewModel @Inject constructor(
     fun onEvent(event: AddEditNoteEvent) {
         when (event) {
             is AddEditNoteEvent.EnteredTitle -> {
-                _noteTitle.value = noteTitle.value.copy(
-                    text = event.value
-                )
+                _noteTitle.value = noteTitle.value
             }
             is AddEditNoteEvent.EnteredContent -> {
-                _noteContent.value = noteContent.value.copy(
-                    text = event.value
-                )
+                _noteContent.value = noteContent.value
             }
             is AddEditNoteEvent.ChangeColor -> {
                 _noteColor.value = event.color

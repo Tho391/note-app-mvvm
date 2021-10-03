@@ -2,9 +2,9 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/cardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/cardView"
     app:shapeAppearanceOverlay="@style/ShapeAppearance.NoteItem">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -31,8 +31,7 @@
             android:layout_marginStart="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             android:ellipsize="end"
-            android:maxLines="10"
-            android:singleLine="true"
+            android:maxLines="3"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/imageView_delete"
             app:layout_constraintStart_toStartOf="parent"
