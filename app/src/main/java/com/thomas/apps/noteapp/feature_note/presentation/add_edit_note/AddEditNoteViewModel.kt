@@ -29,7 +29,7 @@ class AddEditNoteViewModel @Inject constructor(
     private val _noteColor = MutableStateFlow(Note.noteColors.random())
     val noteColor = _noteColor.asStateFlow()
 
-    private val _eventFlow = MutableSharedFlow<UiEvent>()
+    private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 
     private var currentNoteId: Long? = null
@@ -66,17 +66,17 @@ class AddEditNoteViewModel @Inject constructor(
                                 id = currentNoteId
                             )
                         )
-                        _eventFlow.emit(UiEvent.SaveNote)
+                        _eventFlow.emit(UIEvent.SaveNote)
                     } catch (e: InvalidNoteException) {
-                        _eventFlow.emit(UiEvent.ShowSnackbar(e.message ?: "Couldn't save note"))
+                        _eventFlow.emit(UIEvent.ShowSnackbar(e.message ?: "Couldn't save note"))
                     }
                 }
             }
         }
     }
 
-    sealed class UiEvent {
-        data class ShowSnackbar(val message: String) : UiEvent()
-        object SaveNote : UiEvent()
+    sealed class UIEvent {
+        data class ShowSnackbar(val message: String) : UIEvent()
+        object SaveNote : UIEvent()
     }
 }

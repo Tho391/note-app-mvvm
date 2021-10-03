@@ -1,0 +1,8 @@
+package com.thomas.apps.noteapp.feature_login.presentation.login.components
+
+import androidx.fragment.app.Fragment
+import dagger.hilt.android.AndroidEntryPoint
+
+@AndroidEntryPoint
+class LoginFragment : Fragment() {
+}

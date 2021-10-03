@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.animation.doOnEnd
-import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -75,10 +74,10 @@ class AddEditNoteFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.eventFlow.collect { event ->
                 when (event) {
-                    is AddEditNoteViewModel.UiEvent.ShowSnackbar -> {
+                    is AddEditNoteViewModel.UIEvent.ShowSnackbar -> {
                         showErrorSnackbar(event.message)
                     }
-                    is AddEditNoteViewModel.UiEvent.SaveNote -> {
+                    is AddEditNoteViewModel.UIEvent.SaveNote -> {
                         val navController = findNavController()
                         navController.previousBackStackEntry?.savedStateHandle?.set(
                             IntentKeys.SCROLL_TOP,

@@ -2,6 +2,11 @@ package com.thomas.apps.noteapp.di
 
 import android.app.Application
 import androidx.room.Room
+import com.thomas.apps.noteapp.feature_login.data.data_source.LoginApi
+import com.thomas.apps.noteapp.feature_login.data.repository.LoginRepositoryImpl
+import com.thomas.apps.noteapp.feature_login.domain.repository.LoginRepository
+import com.thomas.apps.noteapp.feature_login.domain.use_case.Login
+import com.thomas.apps.noteapp.feature_login.domain.use_case.LoginUseCases
 import com.thomas.apps.noteapp.feature_note.data.data_source.NoteDatabase
 import com.thomas.apps.noteapp.feature_note.data.repository.NoteRepositoryImpl
 import com.thomas.apps.noteapp.feature_note.domain.repository.NoteRepository
@@ -40,6 +45,26 @@ object AppModule {
             deleteNote = DeleteNote(repository),
             addNote = AddNote(repository),
             getNote = GetNote(repository)
+        )
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginApi(): LoginApi {
+        return LoginApi()
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginRepository(loginApi: LoginApi): LoginRepository {
+        return LoginRepositoryImpl(loginApi)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginUseCase(loginRepository: LoginRepository): LoginUseCases {
+        return LoginUseCases(
+            login = Login(loginRepository)
         )
     }
 }
