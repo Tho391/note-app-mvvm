@@ -1,10 +1,14 @@
 package com.thomas.apps.noteapp.feature_note.presentation.add_edit_note.components
 
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.core.animation.doOnEnd
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -99,8 +103,23 @@ class AddEditNoteFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             viewModel.noteColor.collect {
-                val color = requireContext().getColor(it)
-                binding.root.setBackgroundColor(color)
+                val newColor = requireContext().getColor(it)
+
+                val currentColor = (binding.constraintLayout.background as? ColorDrawable)?.color
+                if (currentColor != null) {
+                    ValueAnimator.ofObject(ArgbEvaluator(), currentColor, newColor).run {
+                        duration = 250
+                        addUpdateListener {
+                            binding.constraintLayout.setBackgroundColor(animatedValue as Int)
+                        }
+                        doOnEnd {
+                            binding.constraintLayout.setBackgroundColor(newColor)
+                        }
+                        start()
+                    }
+                } else {
+                    binding.constraintLayout.setBackgroundColor(newColor)
+                }
             }
         }
 
