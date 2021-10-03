@@ -2,6 +2,7 @@ package com.thomas.apps.noteapp.feature_note.presentation.notes
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.thomas.apps.noteapp.feature_login.domain.use_case.LoginUseCases
 import com.thomas.apps.noteapp.feature_note.domain.model.Note
 import com.thomas.apps.noteapp.feature_note.domain.use_case.NoteUseCases
 import com.thomas.apps.noteapp.feature_note.domain.utils.NoteOrder
@@ -14,7 +15,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NotesViewModel @Inject constructor(
-    private val noteUseCases: NoteUseCases
+    private val noteUseCases: NoteUseCases,
+    private val loginUseCases: LoginUseCases,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(NotesState())
@@ -23,6 +25,9 @@ class NotesViewModel @Inject constructor(
     private var recentlyDeletedNote: Note? = null
 
     private var getNotesJob: Job? = null
+
+    private val _eventFlow = MutableSharedFlow<UIEvent>()
+    val eventFlow = _eventFlow.asSharedFlow()
 
     init {
         getNotes(NoteOrder.Date(OrderType.Descending))
@@ -56,6 +61,12 @@ class NotesViewModel @Inject constructor(
                     isOrderSectionVisible = !state.value.isOrderSectionVisible
                 )
             }
+            is NotesEvent.SignOut -> {
+                viewModelScope.launch {
+                    loginUseCases.logout()
+                    _eventFlow.emit(UIEvent.SignOut)
+                }
+            }
         }
     }
 
@@ -68,5 +79,9 @@ class NotesViewModel @Inject constructor(
                     noteOrder = noteOrder
                 )
             }.launchIn(viewModelScope)
+    }
+
+    sealed class UIEvent {
+        object SignOut : UIEvent()
     }
 }

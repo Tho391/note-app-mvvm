@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.thomas.apps.noteapp.R
 import com.thomas.apps.noteapp.databinding.FragmentNotesBinding
@@ -97,6 +98,10 @@ class NotesFragment : Fragment() {
                     viewModel.onEvent(NotesEvent.ToggleOrderSection)
                     true
                 }
+                R.id.item_sign_out -> {
+                    showSignOutDialog()
+                    true
+                }
                 else -> false
             }
         }
@@ -134,6 +139,17 @@ class NotesFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.state.collect {
                 updateUI(it)
+            }
+        }
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.eventFlow.collect { event ->
+                when (event) {
+                    is NotesViewModel.UIEvent.SignOut -> {
+                        val action = NotesFragmentDirections.actionNotesFragmentToSplashFragment()
+                        findNavController().navigate(action)
+                    }
+                }
             }
         }
 
@@ -203,6 +219,16 @@ class NotesFragment : Fragment() {
                 viewModel.onEvent(NotesEvent.RestoreNote)
             }
             .setAnchorView(binding.fabAddNote)
+            .show()
+    }
+
+    private fun showSignOutDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setMessage(R.string.sign_out_message)
+            .setPositiveButton(R.string.ok) { _, _ ->
+                viewModel.onEvent(NotesEvent.SignOut)
+            }
+            .setNeutralButton(R.string.cancel, null)
             .show()
     }
 }

@@ -7,4 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface LoginRepository {
 
     suspend fun login(username: String, password: String): Flow<Resource<User>>
+
+    suspend fun clearLocalCache()
+
+    suspend fun saveUser(user:User)
 }

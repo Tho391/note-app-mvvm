@@ -7,13 +7,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
 object DataStore {
     private val TOKEN_KEY = stringPreferencesKey("TOKEN_KEY")
     private val USER_NAME = stringPreferencesKey("USER_NAME")
     private val USER_LOGIN = stringPreferencesKey("USER_LOGIN")
 
-    private val Context.dataStore by preferencesDataStore(name = "settings")
+    val Context.dataStore by preferencesDataStore(name = "settings")
 
     suspend fun Context.saveToken(token: String?) {
         dataStore.edit { setting ->
