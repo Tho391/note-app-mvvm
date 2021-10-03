@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.TextView
 import androidx.core.text.buildSpannedString
 import androidx.core.text.color
+import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputLayout
 import kotlin.math.roundToInt
 
@@ -75,5 +76,13 @@ object ViewUtils {
                 append(hint)
                 color(Color.RED) { append("*") } // Mind the space prefix.
             }
+    }
+
+    fun CircularProgressIndicator.showIf(show: Boolean) {
+        if (show && isShown) {
+            show()
+        } else {
+            hide()
+        }
     }
 }

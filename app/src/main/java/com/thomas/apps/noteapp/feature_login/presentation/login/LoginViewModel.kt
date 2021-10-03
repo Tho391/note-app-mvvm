@@ -20,6 +20,14 @@ class LoginViewModel @Inject constructor(
     private val _password = MutableStateFlow(LoginTextFieldState())
     val password = _password.asStateFlow()
 
+    val isFormValid = combine(username, password) { (user, pass) ->
+        when {
+            user.text.isBlank() -> false
+            pass.text.isBlank() -> false
+            else -> true
+        }
+    }
+
     private val _eventFlow = MutableSharedFlow<UIEvent>()
     val eventFlow = _eventFlow.asSharedFlow()
 

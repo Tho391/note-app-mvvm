@@ -2,7 +2,7 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/notesFragment">
+    app:startDestination="@id/loginFragment">
 
     <fragment
         android:id="@+id/notesFragment"
@@ -26,5 +26,14 @@
             android:name="noteColor"
             app:argType="integer"
             android:defaultValue="-1" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.thomas.apps.noteapp.feature_login.presentation.login.components.LoginFragment"
+        android:label="LoginFragment" >
+        <action
+            android:id="@+id/action_loginFragment_to_notesFragment"
+            app:destination="@id/notesFragment"
+            app:launchSingleTop="true" />
     </fragment>
 </navigation>
