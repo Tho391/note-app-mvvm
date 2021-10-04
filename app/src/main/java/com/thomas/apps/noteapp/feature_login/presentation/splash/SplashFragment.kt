@@ -12,10 +12,21 @@ import com.thomas.apps.noteapp.feature_login.presentation.utils.DataStore.getTok
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class SplashFragment : Fragment() {
 
     private lateinit var binding: FragmentSplashBinding
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("onCreate ${this.hashCode()}")
+    }
+
+    override fun onDestroy() {
+        Timber.i("onDestroy ${this.hashCode()}")
+        super.onDestroy()
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
